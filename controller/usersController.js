@@ -77,27 +77,6 @@ module.exports = class {
     }
 
     register(){
-        // this.res.writeHead(200,{'Content-Type':'text/html'})
-        // this.res.write('<h2>Welcome to Node jS Dynamic page :: Register Page </h2>');
-        // this.res.end();
-
-        // const records = {
-        //     name : 'Arun',
-        //     title : 'EJS....'
-        // }
-       
-        // this.lib.html('./templates/users/register.ejs',{
-        //     name : {
-        //         fname : 'Arun',
-        //         lname : 'B'
-        //     },
-        //     title : 'EJS....',
-        //     mobile: '9840319606'
-        // },this.res);
-
-
-
-
         this.res.writeHead(200,{'Content-Type':'application/json'});
         this.lib.postData(this.req)
         .then( (post) => { 
