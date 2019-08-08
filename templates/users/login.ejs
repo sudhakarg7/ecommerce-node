@@ -1,0 +1,30 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<!-- <form action="/users/loginVerify" method="POST"> -->
+    
+    <input name="name" id="name" />
+    <input name="password" id="password" />
+    <button type="button" onclick="submit()">Login</button>
+    <div id="res"></div>
+<!-- </form> -->
+<script>
+/*Send the data using post with element id name and name2*/
+var res = document.getElementById('res');
+function submit(){
+      var posting = $.post( '/users/loginVerify', { 
+          name: $('#name').val(), 
+          password: $('#password').val()
+         } );
+
+      /* Alerts the results */
+      posting.done(function( data ) {
+        console.log(data);
+        if(data.status=="success"){
+            res.innerHTML = data.token;
+            res.style.color = 'green';
+        }else{
+            res.innerHTML = data.message;
+            res.style.color = 'red';
+        }
+      });
+    }
+</script>

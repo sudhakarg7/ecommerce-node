@@ -1,0 +1,34 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<h1>Welcome to Register Page </h1>
+<input placeholder="First name" name="fname" id="fname"/>
+<input placeholder="Last name" name="lname" id="lname"/>
+<input placeholder="Mobile" name="mob" id="mob"/>
+<button type="button" onclick="reg()">Register</button>
+
+<p id="res"></p>
+
+
+
+
+<script>
+    /*Send the data using post with element id name and name2*/
+    var res = document.getElementById('res');
+    function reg(){
+          var posting = $.post( '/users/register', { 
+              name: $('#fname').val() +' '+ $('#lname').val(), 
+              mobile: $('#mob').val()
+             } );
+    
+          /* Alerts the results */
+          posting.done(function( data ) {
+            if(data.status=="success"){
+                res.innerHTML = data;
+                res.style.color = 'green';
+            }else{
+                res.innerHTML = data.message;
+                res.style.color = 'red';
+            }
+          });
+        }
+    </script>
