@@ -40,7 +40,21 @@ module.exports = class {
   }
 
   find(query={},tableName,options={}){
+    return new Promise( (resolve,reject) => {
+        this.connect().then((client)=>{
+            
+            const db = client.db(this.dbName);
+            const collection = db.collection(tableName);
 
+            collection.find(query, options).toArray((err, data)=>{
+                if(err) throw err;
+                resolve(data);
+            });
+                   
+        }).catch((err)=>{
+            reject(err)
+        });
+    } );
   } 
   // this.db.find({name:'Arun','users',{projection:{name:1},limit:25,sort:{name:1}}})
 }
