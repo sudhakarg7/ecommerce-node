@@ -1,3 +1,5 @@
+var ObjectId = require('mongodb').ObjectID;
+
 module.exports = class {
     constructor(obj){
       this.res = obj.res;
@@ -111,6 +113,36 @@ module.exports = class {
             console.log(post);
          
             this.db.find({},'users').then( (res)=>{
+                this.res.write(JSON.stringify(res) );
+                console.log(res);   
+                this.res.end();
+
+            } ).catch( (err)=>{
+                console.log(err);
+                this.res.end();
+            } );
+
+          
+
+        } )
+        .catch((e)=>{
+            console.log(e);
+            this.res.end();
+        });
+        
+    }
+
+
+
+    getuserdetails(){
+        this.res.writeHead(200,{'Content-Type':'application/json'});
+        this.lib.postData(this.req)
+        .then( (post) => { 
+            console.log(post);
+         
+            this.db.find({
+                _id: ObjectId(post.token)
+            },'users', { projection: {pass:0, cpass:0}}).then( (res)=>{
                 this.res.write(JSON.stringify(res) );
                 console.log(res);   
                 this.res.end();
